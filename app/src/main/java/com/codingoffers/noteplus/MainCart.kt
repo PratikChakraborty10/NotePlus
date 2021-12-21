@@ -72,8 +72,26 @@ class MainCart : AppCompatActivity(), GroceryRVAdapter.GroceryItemClickInterface
         dialog.show()
     }
     override fun onItemClick(groceryItems: GroceryItems) {
-        groceryViewModel.delete(groceryItems)
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Do you want to delete this item")
+        builder.setMessage("Click on YES to delete this entry")
+        builder.setIcon(android.R.drawable.ic_delete)
+        builder.setPositiveButton("YES") { dialogInterface, which ->
+            groceryViewModel.delete(groceryItems)
+            groceryRVAdapter.notifyDataSetChanged()
+            Toast.makeText(applicationContext, "Item Deleted ...", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("NO") { dialogInterface, which ->
+            Toast.makeText(applicationContext, "Item has not been deleted", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNeutralButton("CANCEL") { dialogInterface, WHICH ->
+
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+        /*groceryViewModel.delete(groceryItems)
         groceryRVAdapter.notifyDataSetChanged()
-        Toast.makeText(applicationContext, "Item Deleted ...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Item Deleted ...", Toast.LENGTH_SHORT).show()*/
     }
 }
