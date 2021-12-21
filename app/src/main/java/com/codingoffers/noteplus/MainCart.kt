@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_main_cart.*
 import kotlinx.android.synthetic.main.grocery_add_dialog.*
 
 class MainCart : AppCompatActivity(), GroceryRVAdapter.GroceryItemClickInterface {
@@ -26,6 +27,10 @@ class MainCart : AppCompatActivity(), GroceryRVAdapter.GroceryItemClickInterface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_cart)
+        supportActionBar?.hide()
+        backBtn.setOnClickListener {
+            onBackPressed()
+        }
         itemsRV = findViewById(R.id.idRVItems)
         addFAB = findViewById(R.id.idFABAdd)
         list = ArrayList<GroceryItems>()
